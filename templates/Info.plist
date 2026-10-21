@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleExecutable</key><string>launcher</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>CFBundleName</key><string>区域模式一键切换</string>
+<key>CFBundleDisplayName</key><string>区域模式一键切换</string>
+<key>CFBundleIdentifier</key><string>org.macregionswitcher.menu</string>
+<key>CFBundleShortVersionString</key><string>0.1.0</string>
+<key>CFBundleVersion</key><string>1</string>
+<key>LSUIElement</key><true/>
+<key>NSAppleEventsUsageDescription</key><string>切换语言前请求浏览器正常退出，并打开离线验证页。</string>
+<key>LSMinimumSystemVersion</key><string>14.0</string>
+</dict></plist>

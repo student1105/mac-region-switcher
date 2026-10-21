@@ -1,0 +1,11 @@
+#!/bin/zsh
+bundle="${0:A:h:h:h}"
+root="${bundle:h}"
+case "${bundle:t:r}" in
+  切到东八区中文) exec "${root}/run-mode.command" chinese ;;
+  切到台北繁体中文) exec "${root}/run-mode.command" taipei ;;
+  查看当前模式) exec "${root}/查看当前模式.command" ;;
+  启用TouchID) exec "${root}/Resources/menu.command" enable-touch-id ;;
+  检测TouchID授权) exec "${root}/Resources/menu.command" test-touch-id ;;
+  *) exec "${root}/Resources/menu.command" ;;
+esac

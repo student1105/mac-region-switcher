@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; form-action 'none'">
+  <title>浏览器区域设置验证</title>
+  <style>
+    :root { color-scheme: light dark; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    body { max-width: 740px; margin: 50px auto; padding: 0 24px; line-height: 1.6; }
+    h1 { font-size: 26px; }
+    dl { display: grid; grid-template-columns: 150px 1fr; gap: 12px 20px; padding: 24px; border: 1px solid #9996; border-radius: 14px; }
+    dt, small { color: #777; }
+    dd { margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-word; }
+    .ok { color: #16803a; font-weight: 700; }
+    .pending { color: #b86800; font-weight: 700; }
+    button { padding: 8px 16px; }
+  </style>
+</head>
+<body>
+  <h1>本浏览器：区域与时区验证</h1>
+  <p id="status" class="pending">尚未完成检测，请确认浏览器允许此本地页面运行 JavaScript。</p>
+  <dl>
+    <dt>Intl 区域</dt><dd id="locale">未读取</dd>
+    <dt>实际时区</dt><dd id="timezone">未读取</dd>
+    <dt>UTC 偏移</dt><dd id="offset">未读取</dd>
+    <dt>首选语言</dt><dd id="language">未读取</dd>
+    <dt>语言列表</dt><dd id="languages">未读取</dd>
+    <dt>本地日期示例</dt><dd id="date">未读取</dd>
+  </dl>
+  <button id="refresh" type="button">重新检测</button>
+  <p>绿色仅表示本浏览器的 Intl、语言、时区和偏移匹配，不代表另一款浏览器或整套系统已经验证。若仍显示旧值，请完全退出本浏览器后重新打开本页。</p>
+  <small>此页面完全离线运行，不发送网络请求，也不检测账号、IP 或任何网站的风控结果。</small>
+  <script src="verify-profiles.js"></script>
+  <script src="verify.js"></script>
+  <script>
+    function update() {
+      const now = new Date();
+      const options = Intl.DateTimeFormat().resolvedOptions();
+      const offsetMinutes = -now.getTimezoneOffset();
+      const data = {
+        locale: options.locale, timeZone: options.timeZone, offsetMinutes,
+        language: navigator.language, languages: Array.from(navigator.languages || [])
+      };
+      document.querySelector('#locale').textContent = data.locale;
+      document.querySelector('#timezone').textContent = data.timeZone;
+      const sign = offsetMinutes >= 0 ? '+' : '-';
+      const absolute = Math.abs(offsetMinutes);
+      document.querySelector('#offset').textContent = 'UTC' + sign + String(Math.floor(absolute / 60)).padStart(2, '0') + ':' + String(absolute % 60).padStart(2, '0');
+      document.querySelector('#language').textContent = data.language;
+      document.querySelector('#languages').textContent = data.languages.join(', ');
+      document.querySelector('#date').textContent = new Intl.DateTimeFormat(undefined, {dateStyle: 'full', timeStyle: 'long'}).format(now);
+      const mode = classifyBrowser(data);
+      const status = document.querySelector('#status');
+      status.textContent = mode ? '本浏览器匹配：' + mode.name : '本浏览器尚未匹配：语言、时区或偏移不一致';
+      status.className = mode ? 'ok' : 'pending';
+    }
+    document.querySelector('#refresh').addEventListener('click', update);
+    update();
+  </script>
+</body>
+</html>

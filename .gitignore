@@ -1,0 +1,12 @@
+.DS_Store
+._*
+build/
+dist/
+*.log
+profiles.local.json
+配置备份/
+STATUS.md
+SUPERVISION.md
+*.zip
+*.app/
+**/set-default-browser

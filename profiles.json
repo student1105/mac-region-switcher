@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "settings": {
+    "setupCompleted": false,
+    "applications": ["chrome", "safari", "terminal"],
+    "chromeProfile": "Default",
+    "defaultBrowser": "keep",
+    "authorization": "touchIdPreferred",
+    "ipv6Services": ["Wi-Fi"]
+  },
+  "profiles": [
+    {
+      "id": "chinese",
+      "name": "东八区简体中文",
+      "locale": "zh-Hans_CN",
+      "languages": ["zh-Hans-CN", "zh-Hans", "en"],
+      "webLanguages": ["zh-CN", "zh", "en"],
+      "timeZone": "Etc/GMT-8",
+      "ipv6": "automatic"
+    },
+    {
+      "id": "taipei",
+      "name": "台北繁体中文",
+      "locale": "zh-Hant_TW",
+      "languages": ["zh-Hant-TW", "zh-Hant", "en"],
+      "webLanguages": ["zh-TW", "zh", "en"],
+      "timeZone": "Asia/Taipei",
+      "ipv6": "off"
+    }
+  ]
+}
